@@ -1,5 +1,7 @@
 # Security Advisor Reference Partner Product 
 
+**Purpose**: This is a sample application that mimics up a security product that can participate in integration flows with IBM Cloud Security Advisor offering in IBM Cloud.
+
 ### How to run locally
 **Pre-requisites** :
   - Create key and certificate for the ssl connection.
