@@ -1,0 +1,6 @@
+---
+global:
+  name: bpapp
+  tag: v1.0
+  log_level: info
+  registryNamespace:

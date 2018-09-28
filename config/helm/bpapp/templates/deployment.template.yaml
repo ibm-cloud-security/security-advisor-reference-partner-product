@@ -1,0 +1,36 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+   name: {{ .Values.global.name }}
+spec:
+   revisionHistoryLimit: 10
+   minReadySeconds: 10
+   strategy:
+      type: RollingUpdate
+      rollingUpdate:
+         maxUnavailable: 0
+         maxSurge: 1
+   replicas: 1
+   template:
+      metadata:
+         labels:
+            microservice: {{ .Values.global.name }}
+      spec:
+         containers:
+         - name: {{ .Values.global.name }}
+           image: registry.ng.bluemix.net/{{ .Values.global.registryNamespace }}/{{ .Values.global.name }}:{{ .Values.global.tag | default "dummy" }}
+           imagePullPolicy: Always
+           ports:
+           - containerPort: 8888
+           env:
+           ##### ENVIRONMENT VARIABLES - SSL CERTIFICATES SECRET
+           - name: tls_cert
+             valueFrom:
+               secretKeyRef:
+                  name: bpapp-certificates-credentials
+                  key: tls_cert
+           - name: tls_key
+             valueFrom:
+               secretKeyRef:
+                  name: bpapp-certificates-credentials
+                  key: tls_key
