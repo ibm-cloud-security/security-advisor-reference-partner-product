@@ -2,7 +2,6 @@
     "license": "IBM proprietary license",
     "devDependencies": {
         "chai": "^3.5.0",
-        "chai-http": "^3.0.0",
         "nock": "^9.0.13",
         "rewire": "^2.5.2",
         "sinon": "^2.1.0"
