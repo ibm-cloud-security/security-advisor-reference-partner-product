@@ -1,0 +1,32 @@
+# Dependency directories
+node_modules
+
+#IDE specific files
+.idea
+.vscode
+
+# Generated files
+configmap.yaml
+testResults/*
+.nyc_output/*
+artifacts/*
+logs
+*.log
+npm-debug.log
+e2e-status.txt
+mergeResult.txt
+
+# configurations
+config
+
+# tests
+test
+
+# Optional npm cache directory
+.npm
+
+# other
+sonar-project.properties
+README.md
+.jshintrc
+.jscsrc

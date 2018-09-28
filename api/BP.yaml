@@ -1,0 +1,125 @@
+---
+swagger: '2.0'
+info:
+  title: BP API
+  description: |
+    The Business Partner API
+  version: "1.0.0"
+
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /v1/setup:
+    get:
+      summary: BP setup URL
+      description: "BP setup URL"
+      responses:
+        '200':
+          description: 'OK'
+          schema:
+            type: object
+      parameters:
+        - name: token
+          in: query
+          description: "Token for validation of the endpoint"
+          required: true
+          type: string
+      tags:
+        - BP setup URL
+  /v1/setup/dashboard:
+    get:
+      summary: get BP dashboard URL
+      description: "get BP dashboard URL"
+      responses:
+        '200':
+          description: 'OK'
+          schema:
+            type: object
+      tags:
+        - BP Dashboard URL
+
+  /v1/setup/metadata:
+    get:
+      summary: get metadata
+      description: "get BP metadata"
+      responses:
+        '200':
+          description: 'OK'
+          schema:
+            type: object
+      tags:
+        - BP Metadata
+
+  /v1/setup/configuration:
+    post:
+      summary: Setting up BP configuration.
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/bp'
+      parameters:
+        - name: token
+          in: query
+          description: "Token for validation of the endpoint"
+          required: true
+          type: string
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/bp'
+      tags:
+        - Set up BP configuration
+  
+  /v1/setup/test:
+    post:
+      summary: Initiating a BP connectivity test.
+      responses:
+        '200':
+          description: 'OK'
+          schema:
+            type: object
+      parameters:
+        - name: token
+          in: query
+          description: "Token for validation of the endpoint"
+          required: true
+          type: string
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+      tags:
+        - Initiating a BP connectivity test
+
+definitions:
+  bp:
+    type: object
+    description: Provides a detailed description of a BP setup.
+    properties:
+      accountID:
+        type: string
+        title: |-
+          Account Id of BP 
+      apikey:
+        type: string
+        description: API Key of BP service.
+      providerId:
+        type: string
+        description: Provider Id to be used to post findings.
+      findingsURL:
+        type: string
+        description: The Findings API url for posting the findings
+      tokenURL:
+        type: string
+        description: IAM Token URL
+    required:
+      - accountID
+      - apikey
+      - providerId
+      - findingsURL
+      - tokenURL

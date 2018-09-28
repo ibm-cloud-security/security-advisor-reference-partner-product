@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name:
+  namespace
+spec:
+  tls:
+  - hosts:
+  rules:
+  - host:
+    http:
+      paths:
+      - path: /v1/setup
+        backend:
+         serviceName: bpapp
+         servicePort: 8888
+

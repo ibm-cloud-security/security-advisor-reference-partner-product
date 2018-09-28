@@ -1,0 +1,23 @@
+# Dependency directories
+node_modules
+
+#IDE specific files
+.idea
+.vscode
+
+# Generated files
+configmap.yaml
+testResults/*
+.nyc_output/*
+artifacts/*
+logs
+*.log
+npm-debug.log
+.DS_Store
+.settings
+.project
+
+# local files
+artifacts/
+testResults/
+test/1local_settings.js

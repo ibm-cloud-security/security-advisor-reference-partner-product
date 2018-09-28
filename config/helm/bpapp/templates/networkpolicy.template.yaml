@@ -1,0 +1,12 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+ name: {{ .Values.global.name }}
+spec:
+ podSelector:
+  matchLabels:
+   microservice: {{ .Values.global.name }}
+ ingress:
+ - from:
+   - namespaceSelector:
+       matchLabels:
