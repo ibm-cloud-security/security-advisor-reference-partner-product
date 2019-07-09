@@ -1,4 +1,5 @@
-FROM node:8-alpine
+#FROM node:8-alpine
+FROM wcp-security-advisor-docker-local.artifactory.swg-devops.com/securityadvisor:0.0.3
 
 RUN apk add --no-cache make \
     python \
