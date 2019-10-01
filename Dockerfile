@@ -14,7 +14,7 @@ RUN mkdir -p /usr/src/app
 
 # Copy sources and install required packages.
 COPY . /usr/src/app
-RUN cd /usr/src/app && npm install --production && rm -f .npmrc
+RUN cd /usr/src/app && npm install --production
 WORKDIR /usr/src/app
 
 ENV PORT 8888
