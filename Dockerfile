@@ -5,6 +5,10 @@ RUN  apt-get update -qqy \
   && apt-get install -y --no-install-recommends build-essential python libssl1.0-dev liblz4-dev libpthread-stubs0-dev libsasl2-dev libsasl2-modules ca-certificates \
   && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/apt/*
 
+#vul. image fix
+RUN apt-get update \
+  && apt-get --only-upgrade install -y e2fsprogs
+  
 # Create app directory
 RUN mkdir -p /usr/src/app
 
