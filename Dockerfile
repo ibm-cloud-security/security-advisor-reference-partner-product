@@ -1,25 +1,30 @@
-FROM node:8.15.1-alpine
+FROM node:8.16-slim
 
-RUN apk add --no-cache make \
-    python \
-    g++
+# Install image packages.
+RUN  apt-get update -qqy \
+  && apt-get install -y --no-install-recommends build-essential python libssl1.0-dev liblz4-dev libpthread-stubs0-dev libsasl2-dev libsasl2-modules ca-certificates \
+  && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/apt/*
 
+#vul. image fix
+RUN apt-get update \
+  && apt-get --only-upgrade install -y e2fsprogs
+  
 # Create app directory
 RUN mkdir -p /usr/src/app
-RUN mkdir temp
 
-# Copy package.json first to check if an npm install is needed
-COPY .npmrc /temp
-COPY package.json /temp
-RUN cd temp && npm install
-RUN cp -a /temp/node_modules /usr/src/app
-
-# Bundle app source
+# Copy sources and install required packages.
 COPY . /usr/src/app
-
+RUN cd /usr/src/app && npm install --production
 WORKDIR /usr/src/app
 
 ENV PORT 8888
 EXPOSE 8888
+
+# Run as non-root
+RUN chmod -R 775 /usr/src
+RUN groupadd -g 1001 appuser \
+ && useradd -r -u 1001 -g appuser appuser
+RUN chown -R appuser:appuser /usr/src/app
+USER appuser
 
 CMD ["npm", "start"]
