@@ -18,7 +18,7 @@ spec:
       spec:
          containers:
          - name: {{ .Values.global.name }}
-           image: registry.ng.bluemix.net/{{ .Values.global.registryNamespace }}/{{ .Values.global.name }}:{{ .Values.global.tag | default "dummy" }}
+           image: us.icr.io/{{ .Values.global.registryNamespace }}/{{ .Values.global.name }}:{{ .Values.global.tag | default "dummy" }}
            imagePullPolicy: Always
            ports:
            - containerPort: 8888
