@@ -7,7 +7,8 @@ RUN  apt-get update -qqy \
 
 #vul. image fix
 RUN apt-get update \
-  && apt-get --only-upgrade install -y e2fsprogs
+  && apt-get --only-upgrade install -y e2fsprogs \
+  && apt-get --only-upgrade install -y openssl
   
 # Create app directory
 RUN mkdir -p /usr/src/app
