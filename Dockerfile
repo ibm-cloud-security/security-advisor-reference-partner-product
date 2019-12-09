@@ -1,14 +1,10 @@
-FROM node:8.16-slim
+FROM node:12.13-slim
+ENV NO_UPDATE_NOTIFIER true
 
 # Install image packages.
 RUN  apt-get update -qqy \
-  && apt-get install -y --no-install-recommends build-essential python libssl1.0-dev liblz4-dev libpthread-stubs0-dev libsasl2-dev libsasl2-modules ca-certificates \
+  && apt-get install -y --no-install-recommends build-essential e2fsprogs python librdkafka-dev libssl-dev ca-certificates \
   && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/apt/*
-
-#vul. image fix
-RUN apt-get update \
-  && apt-get --only-upgrade install -y e2fsprogs \
-  && apt-get --only-upgrade install -y openssl
   
 # Create app directory
 RUN mkdir -p /usr/src/app
