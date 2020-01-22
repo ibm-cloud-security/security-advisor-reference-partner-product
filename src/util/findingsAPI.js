@@ -19,21 +19,23 @@ axios.defaults.headers.common['Accept'] = 'application/json';
 
 function FindingsAPI(baseEndpoint, accessToken, logger) {
     logger = logger || console
-
-    const rest = axios.create();
-    rest.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
     logger.log('info', baseEndpoint)
 
-  
+    const config = {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`
+        }
+    }
+
     async function createOccurrence(accountId, payload, providerId='test-provider') {
         const url = `${baseEndpoint}/${accountId}/providers/${providerId}/occurrences`
-        response = await axios.post(url, payload)
+        response = await axios.post(url, payload, config)
         return response
     }
 
     async function deleteOccurrence(accountId, providerId='test-provider', id='test-occurrence') {
         const url = `${baseEndpoint}/${accountId}/providers/${providerId}/occurrences/${id}`
-        response = await axios.delete(url, body)
+        response = await axios.delete(url, body, config)
         return response
     }
 

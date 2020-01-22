@@ -45,6 +45,7 @@ var getMetadata = function (req, res, next) {
       "card": {
         "section": "Business Partner Tools",
         "title": "Business Partner Card 1",
+        "subtitle": "Business Partner",
         "finding_note_names": [
           "providers/security-advisor/notes/bp-findings-type"
         ],
@@ -52,7 +53,7 @@ var getMetadata = function (req, res, next) {
           {
             "kind": "NUMERIC",
             "text": "Number of findings reported by business partner",
-            "default_time_range": "7d",
+            "default_time_range": "4d",
             "value_type": {
               "kind": "FINDING_COUNT",
               "finding_note_names": [
