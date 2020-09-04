@@ -1,11 +1,11 @@
-FROM node:12.16.1-slim
+FROM node:12.18.2-slim
 ENV NO_UPDATE_NOTIFIER true
 
 # Install image packages.
 RUN  apt-get update -qqy \
-  && apt-get install -y --no-install-recommends build-essential e2fsprogs python librdkafka-dev libssl-dev ca-certificates wget\
+  && apt-get install -y --no-install-recommends build-essential e2fsprogs python librdkafka-dev libssl-dev ca-certificates wget libcomerr2 libss2 \
   && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/apt/*
- 
+
 # Create app directory
 RUN mkdir -p /usr/src/app
 
