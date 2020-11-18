@@ -21,6 +21,6 @@ WORKDIR /opt/app-root/src/app
 RUN cd /opt/app-root/src/app && npm install --production
 
 ENV PORT 8888
-EXPOSE 8080
+EXPOSE 8888
 
 CMD ["npm", "start"]
