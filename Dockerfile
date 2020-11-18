@@ -1,27 +1,26 @@
-FROM node:12.18.2-slim
+FROM registry.access.redhat.com/ubi8/nodejs-12:latest
+
 ENV NO_UPDATE_NOTIFIER true
+USER root
 
-# Install image packages.
-RUN  apt-get update -qqy \
-  && apt-get install -y --no-install-recommends build-essential e2fsprogs python librdkafka-dev libssl-dev ca-certificates wget libcomerr2 libss2 \
-  && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/apt/*
+# yum upgrade and install packages
+RUN yum -y update -q \
+ && yum install -y python2 \
+ && yum clean all \
+ && yum remove -y  mariadb-connector-c
+ 
+# ENV PATH /usr/local/src/bin:${PATH}
+ENV LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64
 
-# Create app directory
-RUN mkdir -p /usr/src/app
+# Non-root user
+USER 1001
+RUN mkdir -p /opt/app-root/src/app
+COPY . /opt/app-root/src/app
+WORKDIR /opt/app-root/src/app
 
-# Copy sources and install required packages.
-COPY . /usr/src/app
-RUN cd /usr/src/app && npm install --production
-WORKDIR /usr/src/app
+RUN cd /opt/app-root/src/app && npm install --production
 
-ENV PORT 8888
-EXPOSE 8888
-
-# Run as non-root
-RUN chmod -R 775 /usr/src
-RUN groupadd -g 1001 appuser \
- && useradd -r -u 1001 -g appuser appuser
-RUN chown -R appuser:appuser /usr/src/app
-USER appuser
+ENV PORT 8080
+EXPOSE 8080
 
 CMD ["npm", "start"]
